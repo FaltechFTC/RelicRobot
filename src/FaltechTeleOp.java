@@ -65,11 +65,11 @@ public class FaltechTeleOp extends OpMode{
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
      */
 
-    @Override
-    public void loop() {
+	@Override
+	public void loop() {
 		loopCount++;
-        telemetry.addData("Loop #", loopCount);
-        telemetry.update();
+		telemetry.addData("Loop #", loopCount);
+		telemetry.update();
 
 		doDriving();
 		doFlipping();
@@ -78,16 +78,7 @@ public class FaltechTeleOp extends OpMode{
 		doRelicArm();
 
 		if (ENABLE_LIGHTS)  doLights();
-
-		if (false) {  // do some extra telemetry
-			telemetry.addData("Right Stick Y ", FwdBack_D);
-			telemetry.addData("Left Stick X", Turn_D);
-			telemetry.addData("Right Stick Y", gamepad2.right_stick_y);
-			telemetry.addData("SrvRelicPosition",robot.relicArm.srvRelicArm.getPosition());
-			telemetry.addData("mtrFlipperCP", robot.flipper.mtrFlipper.getCurrentPosition() );
-			telemetry.update();
-		}
-    }
+	}
 
 	void doDriving() {
 		double straight = deadzone(-gamepad1.right_stick_y);
