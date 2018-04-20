@@ -18,7 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 /**
- * Created by Admin on 11/24/2017.
+ * Created by Faltech Team on 11/24/2017.
  */
 
 public class DriveTrain extends RobotPart{

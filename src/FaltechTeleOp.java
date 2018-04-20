@@ -11,17 +11,20 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 		Turn = gamepad1.left_stick_x
 		Strafe = gamepad1.right_stick_x
 
+	Jewel Arm LEFT = gamepad1.dpad_left  RIGHT = gamepad1.dpad_right
+
+
 	Collector  In = gamepad2.dpad_up    Out= gamepad2.dpad_down   Rotate = gamepad2.left_stick_x
 	Elevator  Up = gamepad2.right_bumper   Down = gamepad2.left_bumper;
 
 	Flip Glyph = gamepad2.right_trigger
 
-	Jewel Arm LEFT = gamepad1.dpad_left  RIGHT = gamepad1.dpad_right
 		
  */
-@TeleOp(name = "Faltech TeleOp2D", group = "7079")
-public class FaltechTeleOp2 extends OpMode{
+@TeleOp(name = "TeleOp", group = "7079")
+public class FaltechTeleOp extends OpMode{
 
+	// static values are ones that only change at compile/coding time
     static double JOYSTICK_DEADZONE_LIMIT = 0.1;
 	static boolean ENABLE_LIGHTS = false;
 
@@ -55,6 +58,7 @@ public class FaltechTeleOp2 extends OpMode{
      */
     @Override
     public void start() {
+		loopCount=0; //reset
     }
 
     /*
@@ -75,7 +79,7 @@ public class FaltechTeleOp2 extends OpMode{
 
 		if (ENABLE_LIGHTS)  doLights();
 
-		if (false) {
+		if (false) {  // do some extra telemetry
 			telemetry.addData("Right Stick Y ", FwdBack_D);
 			telemetry.addData("Left Stick X", Turn_D);
 			telemetry.addData("Right Stick Y", gamepad2.right_stick_y);
@@ -113,7 +117,7 @@ public class FaltechTeleOp2 extends OpMode{
 
 		if (elevatorUp) robot.glyphCollection.elevatorUp(0.8);
         else if (elevatorDown) robot.glyphCollection.elevatorUp(-0.8);
-        else if (gamepad2.y) robot.glyphCollection.elevatorUp(0.16);
+        else if (gamepad2.y) robot.glyphCollection.elevatorUp(0.16);  // TODO: What is this creeper intake mode?
         else robot.glyphCollection.elevatorUp(0);
 	}
 		

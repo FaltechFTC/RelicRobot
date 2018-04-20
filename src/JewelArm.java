@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
- * Created by Admin on 11/25/2017.
+ * Created by Faltech Team on 11/25/2017.
  */
 
 public class JewelArm extends RobotPart {
@@ -28,11 +28,11 @@ public class JewelArm extends RobotPart {
         sensorBlue = ahwMap.colorSensor.get("sensorBlue");
     }
 
-    private void jewelArmLeft(double speed){
-        csrvJewel.setPower(-speed);
-    }
     private void jewelArmRight(double speed){
         csrvJewel.setPower(speed);
+    }
+    private void jewelArmLeft(double speed){
+        csrvJewel.setPower(-speed);
     }
     public void stop(){
         csrvJewel.setPower(0);

@@ -19,7 +19,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
 /**
- * Created by Admin on 11/28/2017.
+ * Created by Faltech Team on 11/28/2017.
  */
 
 public class GlyphCollection extends RobotPart {

@@ -19,7 +19,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
- * Created by Admin on 11/29/2017.
+ * Created by Faltech Team on 11/29/2017.
  */
 
 public class Flipper extends RobotPart {

@@ -19,7 +19,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
- * Created by Admin on 11/24/2017.
+ * Created by Faltech Team on 11/24/2017.
  */
 
 public class FaltechRobot {
@@ -28,7 +28,6 @@ public class FaltechRobot {
     GlyphCollection glyphCollection = new GlyphCollection();
     Flipper flipper = new Flipper();
     RelicArm relicArm = new RelicArm();
-    double glyphDistance[]={10, 17.5, 22};
     public void init(HardwareMap ahwMap, Telemetry myTelemetry){
         myTelemetry.addData("Robot","Init");
         myTelemetry.update();
