@@ -26,55 +26,56 @@ public class Flipper extends RobotPart {
     public DcMotor mtrFlipper = null;
     double flipStartPosition = 0;
 
-    public void init(HardwareMap ahwMap, Telemetry myTelemetry){
-        super.init(ahwMap,myTelemetry);
+    public void init(HardwareMap ahwMap, Telemetry myTelemetry) {
+        super.init(ahwMap, myTelemetry);
         mtrFlipper = ahwMap.dcMotor.get("mtrFlipper");
         mtrFlipper.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         mtrFlipper.setDirection(DcMotor.Direction.REVERSE);
-        
-		// TODO: Ask Rohit why this is commented out.
+
+        // TODO: Ask Rohit why this is commented out.
+        // There used to be a concept of picking the "zero position" based on actual physical zero of the flipper.
         //flipStartPosition = robot.flipper.mtrFlipper.getCurrentPosition();
         //telemetry.addData("mtrFlipIntPos",flipStartPosition);    
         //telemetry.update();
     }
-    
-    public void flipperUp(double position){
-        mtrFlipper.setTargetPosition((int) (-position));
-    }
-    
-    public void flipperDown(double position){
+
+    public void flipperUp(double position) {
         mtrFlipper.setTargetPosition((int) (-position));
     }
 
-    public void stop(){
+    public void flipperDown(double position) {
+        mtrFlipper.setTargetPosition((int) (-position));
+    }
+
+    public void stop() {
         mtrFlipper.setPower(0);
     }
-    
-    public void mtrFlipperUp(double position,double speed, double sleep){
+
+    public void mtrFlipperUp(double position, double speed, double sleep) {
         flipperUp(-position);
         mtrFlipper.setPower(speed);
         mySleep(sleep);
         stop();
     }
-    public void mtrFlipperDown(double position,double speed,double sleep){
+
+    public void mtrFlipperDown(double position, double speed, double sleep) {
         flipperDown(-position);
         mtrFlipper.setPower(speed);
         mySleep(sleep);
         stop();
     }
-	
-	public void processInput (double flipPos_D) {
+
+    public void processInput(double flipPos_D) {
         double flipCurrentPosition = mtrFlipper.getCurrentPosition();
-        
-		//Stopping when at rest
-        if(Math.abs(flipStartPosition - flipCurrentPosition) < 2 && flipPos_D == 0){
-            robot.flipper.stop();
-        }
-        else{
+
+        //Stopping when at rest
+        if (Math.abs(flipStartPosition - flipCurrentPosition) < 2 && flipPos_D == 0) {
+            stop();
+        } else {
             double newPos = flipStartPosition + 175 * flipPos_D;
-            double powerVar = (Math.abs(newPos - flipCurrentPosition)/100);
-            robot.flipper.flipperUp(-newPos);
-            robot.flipper.mtrFlipper.setPower(-(0.5 * powerVar) - 0.2);
+            double powerVar = (Math.abs(newPos - flipCurrentPosition) / 100);
+            flipperUp(-newPos);
+            mtrFlipper.setPower(-(0.5 * powerVar) - 0.2);
         }
-	}
+    }
 }
