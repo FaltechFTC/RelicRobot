@@ -25,7 +25,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class FaltechRobot {
     DriveTrain driveTrain = new DriveTrain();
     JewelArm jewelArm = new JewelArm();
-    GlyphColllection glyphColllection = new GlyphColllection();
+    GlyphCollection glyphCollection = new GlyphCollection();
     Flipper flipper = new Flipper();
     RelicArm relicArm = new RelicArm();
     double glyphDistance[]={10, 17.5, 22};
@@ -38,7 +38,7 @@ public class FaltechRobot {
         driveTrain.init(ahwMap,myTelemetry);
         
         jewelArm.init(ahwMap,myTelemetry);
-        glyphColllection.init(ahwMap,myTelemetry);
+        glyphCollection.init(ahwMap,myTelemetry);
         flipper.init(ahwMap,myTelemetry);
         relicArm.init(ahwMap,myTelemetry);
 
@@ -48,7 +48,7 @@ public class FaltechRobot {
     public void robotStop(){
         driveTrain.stop();
         jewelArm.stop();
-        glyphColllection.stop();
+        glyphCollection.stop();
         flipper.stop();
         relicArm.stop();
     }

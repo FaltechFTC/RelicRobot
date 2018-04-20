@@ -77,6 +77,13 @@ public class DriveTrain extends RobotPart{
             imu.initialize(parameters);
         }
     }
+	void drive( double straight, double strafe, double turn) {
+		mtrFR.setPower(weightedAverage(straight,strafe,-turn));
+		mtrFL.setPower(weightedAverage(straight,-strafe,turn));
+		mtrBR.setPower(weightedAverage(straight,-strafe,-turn));
+		mtrBL.setPower(weightedAverage(straight,strafe,turn));
+	}
+
     private void leftSide(double speed){
         mtrBL.setPower(speed);
         mtrFL.setPower(speed);
@@ -96,15 +103,6 @@ public class DriveTrain extends RobotPart{
         }
     }
 
-    // private void leftSideBack(double speed){
-    //     mtrBL.setPower(-speed);
-    //     mtrFL.setPower(-speed);
-    // }
-
-    // private void rightSideBack(double speed){
-    //     mtrBR.setPower(-speed);
-    //     mtrFR.setPower(-speed);
-    // }
 
     public void stop(){
         mtrBL.setPower(0);
@@ -118,22 +116,12 @@ public class DriveTrain extends RobotPart{
         rightSide(speed);
     }
 
-    // private void goBackward(double speed){
-    //     leftSideBack(speed);
-    //     rightSideBack(speed);
-
-
-    // }
 
     public void pivot(double speed){
         leftSide(speed);
         rightSide(-speed);
     }
 
-    // private void pivotLeft(double speed){
-    //     leftSide(-speed);
-    //     rightSide(speed);
-    // }
 
     public void strafe(double speed){
         mtrFR.setPower(-speed);
@@ -141,13 +129,6 @@ public class DriveTrain extends RobotPart{
         mtrFL.setPower(speed);
         mtrBL.setPower(-speed);
     }
-
-    // public void strafeLeft(double speed){
-    //     mtrFR.setPower(speed);
-    //     mtrBR.setPower(-speed);
-    //     mtrFL.setPower(-speed);
-    //     mtrBL.setPower(speed);
-    // }
 
     public void motor_test(){
         privateTelemetry.addData("Testing", "mtrBL");
@@ -245,7 +226,6 @@ public class DriveTrain extends RobotPart{
 
     }
     
-
     private void timeOutExit(double timeout){
 
         while ((runtime.seconds() < (timeout))
@@ -274,9 +254,6 @@ public class DriveTrain extends RobotPart{
         stop();
     }
 
-
-
-
     public void goStrafeInches(double inches, double speed, double timeout ){
         runtime.reset();
         setModeRobot();
@@ -290,16 +267,6 @@ public class DriveTrain extends RobotPart{
         stop();
     }
     
-    // public void goBackward(double inches, double speed, double timeout){
-    //     runtime.reset();
-    //     setModeRobot();
-    //     targetPositions(-inches);
-    //     leftSideForward(speed);
-    //     rightSideForward(speed);
-    //     timeOutExit(timeout);
-    //     stop();
-    // }
-    
     public void goStrafe(double speed, double timeout){
         runtime.reset();
         strafe(speed);
@@ -308,14 +275,6 @@ public class DriveTrain extends RobotPart{
     }
 
 
-    
-    // public void goStrafeLeft(double speed, double timeout){
-    //     runtime.reset();
-    //     strafeLeft(speed);
-    //     mySleep(timeout);
-    //     stop();
-    // }
-    
     public double offSetAngle(double angle){
         double offSet = 0.12 * angle;
         return offSet;
@@ -391,18 +350,6 @@ public class DriveTrain extends RobotPart{
          stop();
      }
 
-    // public void returnToOrigin(double speed, double timeout){
-    //         double heading = angles.firstAngle;
-    //         if (heading > origin){
-    //             turnLeft(speed,Math.abs(origin+heading),timeout);
-    //         }
-    //         else {
-    //             turnRight(speed,Math.abs(origin+heading),timeout);
-    //         }
-    // }
-
-
-
     public void swivel(double speed, int gap){
         runtime.reset();
         pivot(speed);
@@ -415,18 +362,6 @@ public class DriveTrain extends RobotPart{
         // mySleep(250);
         stop();
     }
-    // public void swivelLeft(double speed, int gap){
-    //     runtime.reset();
-    //     pivotLeft(speed);
-    //     mySleep(gap);
-    //     stop();
-    //     mySleep(250);
-    //     // pivotRight(speed);
-    //     // mySleep(gap);
-    //     // stop();
-    //     // mySleep(250);
-    //     stop();
-    // }
         public void TurnTime(int time, int direction){
         runtime.reset();
         pivot(.3 * direction);
@@ -439,17 +374,14 @@ public class DriveTrain extends RobotPart{
         // mySleep(250);
         stop();
     }
-//         public void TurnLeftTime(int time){
-//         runtime.reset();
-//         pivotLeft(.3);
-//         mySleep(time);
-//         stop();
-//         mySleep(250);
-//         // pivotRight(speed);
-//         // mySleep(gap);
-//         // stop();
-//         // mySleep(250);
-//         stop();
-//     }
 
+    public double weightedAverage(double x, double y, double z) {
+        double speed_D = 0;
+        if ((Math.abs(x) + Math.abs(y) + Math.abs(z))  != 0.0) {
+            speed_D = ((x * Math.abs(x)) + (y * Math.abs(y)) + (z * Math.abs(z)))
+                    / (Math.abs(x) + Math.abs(y) + Math.abs(z));
+        }
+        return (speed_D);
+    }
+	
 }

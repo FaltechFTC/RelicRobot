@@ -239,7 +239,7 @@ public class VumarkFaltech extends LinearOpMode {
         telemetry.update();
 
         robot.driveTrain.turnDegreesRight(.5, 90, 5);
-//          robot.glyphColllection.elevatorUp(.8);
+//          robot.glyphCollection.elevatorUp(.8);
 //          sleep(2000);
 
         robot.driveTrain.goInches(6,.25,10);
@@ -248,15 +248,15 @@ public class VumarkFaltech extends LinearOpMode {
         telemetry.update();
         sleep(1000);
 
-        robot.glyphColllection.mtrHexFR.setPower(.5);
+        robot.glyphCollection.mtrHexFR.setPower(.5);
         sleep(1250);
-        robot.glyphColllection.stop();
+        robot.glyphCollection.stop();
 
         telemetry.addData("Starting Flush","now");
         sleep(1000);
-        robot.glyphColllection.stop();
+        robot.glyphCollection.stop();
 
-        robot.glyphColllection.collectionExpel(1);
+        robot.glyphCollection.collectionExpel(1);
         sleep(2500);
 
         telemetry.addData("Moving towards the cryptobox","now");
@@ -272,7 +272,7 @@ public class VumarkFaltech extends LinearOpMode {
         robot.driveTrain.goInches(-6, 0.25, 5);
         robot.driveTrain.stop();
         sleep(500);
-        robot.glyphColllection.stop();
+        robot.glyphCollection.stop();
 
 
 
@@ -283,16 +283,16 @@ public class VumarkFaltech extends LinearOpMode {
 //        telemetry.update();
 //        sleep(500);
 //
-//        robot.glyphColllection.mtrHexFR.setPower(.5);
+//        robot.glyphCollection.mtrHexFR.setPower(.5);
 //        sleep(1250);
-//        robot.glyphColllection.stop();
+//        robot.glyphCollection.stop();
 //
 //        telemetry.addData("Starting Flush","now");
 //        sleep(500);
 //
-//        robot.glyphColllection.collectionExpel(1);
+//        robot.glyphCollection.collectionExpel(1);
 //        sleep(2500);
-//        robot.glyphColllection.stop();
+//        robot.glyphCollection.stop();
 //
 //        telemetry.addData("Moving towards the cryptobox","now");
 //        sleep(500);
@@ -303,14 +303,14 @@ public class VumarkFaltech extends LinearOpMode {
 //        telemetry.addData("Starting Flush","now");
 //        sleep(500);
 //
-//        robot.glyphColllection.collectionExpel(1);
+//        robot.glyphCollection.collectionExpel(1);
 //
 //        telemetry.addData("Moving out","now");
 //        sleep(1500);
 //
 //        robot.driveTrain.goInches(-6, 0.25, 5);
 //        robot.driveTrain.stop();
-//        robot.glyphColllection.stop();
+//        robot.glyphCollection.stop();
 
 
             robot.robotStop();

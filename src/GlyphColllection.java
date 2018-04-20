@@ -22,7 +22,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Created by Admin on 11/28/2017.
  */
 
-public class GlyphColllection extends RobotPart {
+public class GlyphCollection extends RobotPart {
     public DcMotor mtrHexFR = null;
     public DcMotor mtrHexFL = null;
     public CRServo csrvElevator = null;
@@ -77,14 +77,10 @@ public class GlyphColllection extends RobotPart {
      }
      
      
-    public void collectionClockwise(double speed){
+    public void collectionRotate(double speed){
         mtrHexFL.setPower(speed);
         mtrHexFR.setPower(-speed);
     }
-    // private void collectionCounterClockwise(double speed){
-    //     mtrHexFL.setPower(-speed);
-    //     mtrHexFR.setPower(speed);
-    // }
 
     // public void glyphIntake(double speed, double timeout){
     //     runtime.reset();

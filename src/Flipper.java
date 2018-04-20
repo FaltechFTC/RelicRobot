@@ -24,6 +24,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Flipper extends RobotPart {
     public DcMotor mtrFlipper = null;
+    double flipStartPosition = 0;
 
     public void init(HardwareMap ahwMap, Telemetry myTelemetry){
         super.init(ahwMap,myTelemetry);
@@ -31,6 +32,10 @@ public class Flipper extends RobotPart {
         mtrFlipper.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         mtrFlipper.setDirection(DcMotor.Direction.REVERSE);
         
+		// TODO: Ask Rohit why this is commented out.
+        //flipStartPosition = robot.flipper.mtrFlipper.getCurrentPosition();
+        //telemetry.addData("mtrFlipIntPos",flipStartPosition);    
+        //telemetry.update();
     }
     
     public void flipperUp(double position){
@@ -57,4 +62,19 @@ public class Flipper extends RobotPart {
         mySleep(sleep);
         stop();
     }
+	
+	public void processInput (double flipPos_D) {
+        double flipCurrentPosition = mtrFlipper.getCurrentPosition();
+        
+		//Stopping when at rest
+        if(Math.abs(flipStartPosition - flipCurrentPosition) < 2 && flipPos_D == 0){
+            robot.flipper.stop();
+        }
+        else{
+            double newPos = flipStartPosition + 175 * flipPos_D;
+            double powerVar = (Math.abs(newPos - flipCurrentPosition)/100);
+            robot.flipper.flipperUp(-newPos);
+            robot.flipper.mtrFlipper.setPower(-(0.5 * powerVar) - 0.2);
+        }
+	}
 }

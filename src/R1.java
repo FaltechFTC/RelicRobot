@@ -102,7 +102,7 @@ public class R1 extends LinearOpMode {
 //
             robot.driveTrain.turnDegreesRight(.3,75,5);
             robot.driveTrain.goInches(4, .25, 10);
-//            robot.glyphColllection.elevatorUp(.8);
+//            robot.glyphCollection.elevatorUp(.8);
 //            sleep(2000);
 
 
@@ -110,13 +110,13 @@ public class R1 extends LinearOpMode {
             telemetry.update();
             sleep(1000);
 
-            robot.glyphColllection.mtrHexFR.setPower(.5);
+            robot.glyphCollection.mtrHexFR.setPower(.5);
             sleep(1250);
-            robot.glyphColllection.stop();
+            robot.glyphCollection.stop();
 
             telemetry.addData("Starting Flush", "now");
 
-            robot.glyphColllection.collectionExpel(1);
+            robot.glyphCollection.collectionExpel(1);
             sleep(2500);
 
             telemetry.addData("Moving towards the cryptobox", "now");
@@ -132,7 +132,7 @@ public class R1 extends LinearOpMode {
             //robot.driveTrain.goPulsate(12, 0.2, -1);
             sleep(500);
             robot.driveTrain.goInches(-3,.25,5);
-            robot.glyphColllection.stop();
+            robot.glyphCollection.stop();
             robot.driveTrain.stop();
             finished = true;
 

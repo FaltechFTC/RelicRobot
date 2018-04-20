@@ -140,37 +140,37 @@ public class FaltechTeleOp3 extends OpMode{
 
         //Collector
         if (CollectorIn_B){
-            robot.glyphColllection.collectionIntake(1);
+            robot.glyphCollection.collectionIntake(1);
         }
 
         else if (CollectorEject_B){
-            robot.glyphColllection.collectionExpel(1);
+            robot.glyphCollection.collectionExpel(1);
         }
         else {
-            robot.glyphColllection.mtrHexFL.setPower(0);
-            robot.glyphColllection.mtrHexFR.setPower(0);
+            robot.glyphCollection.mtrHexFL.setPower(0);
+            robot.glyphCollection.mtrHexFR.setPower(0);
         }        if (Math.abs(-gamepad2.left_stick_x) > deadzone_D){
-            robot.glyphColllection.collectionClockwise(gamepad2.left_stick_x);
+            robot.glyphCollection.collectionClockwise(gamepad2.left_stick_x);
         }
         
         
         if (gamepad2.right_bumper){
             telemetry.addData("Elevator status","Going Up");
             telemetry.update();
-            robot.glyphColllection.csrvElevator.setPower(-0.8);
-            robot.glyphColllection.csrvElevator2.setPower(0.8);
+            robot.glyphCollection.csrvElevator.setPower(-0.8);
+            robot.glyphCollection.csrvElevator2.setPower(0.8);
         } 
         else if (gamepad2.left_bumper){
-            robot.glyphColllection.csrvElevator.setPower(0.8);
-            robot.glyphColllection.csrvElevator2.setPower(-0.8);
+            robot.glyphCollection.csrvElevator.setPower(0.8);
+            robot.glyphCollection.csrvElevator2.setPower(-0.8);
         }
         else if (gamepad2.y){
-            robot.glyphColllection.csrvElevator.setPower(-0.16);
-            robot.glyphColllection.csrvElevator2.setPower(0.16);
+            robot.glyphCollection.csrvElevator.setPower(-0.16);
+            robot.glyphCollection.csrvElevator2.setPower(0.16);
         }
         else {
-            robot.glyphColllection.csrvElevator.setPower(0);
-            robot.glyphColllection.csrvElevator2.setPower(0);
+            robot.glyphCollection.csrvElevator.setPower(0);
+            robot.glyphCollection.csrvElevator2.setPower(0);
         }
 //Relic Arm
          if (gamepad2.x){
