@@ -30,7 +30,7 @@ public class FaltechTeleOp extends OpMode{
 
     FaltechRobot robot = new FaltechRobot();
     int loopCount = 0;
-		
+	
 	
 	/* Initialize the hardware variables.
 	 * The init() method of the hardware class does all the work here
@@ -131,6 +131,7 @@ public class FaltechTeleOp extends OpMode{
 	}
 
 	void doRelicArm() {
+
 		// Claw  (open/close)
 		if (gamepad2.x) 
              robot.relicArm.srvClench();
