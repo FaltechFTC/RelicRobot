@@ -48,6 +48,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 //import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 //import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 //import org.firstinspires.ftc.robotcontroller.external.samples.ConceptVuforiaNavigation;
+
 /**
  * This OpMode illustrates the basics of using the Vuforia engine to determine
  * the identity of Vuforia VuMarks encountered on the field. The code is structured as
@@ -59,15 +60,15 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * @see VuforiaLocalizer
  * @see VuforiaTrackableDefaultListener
  * see  ftc_app/doc/tutorial/FTC_FieldCoordinateSystemDefinition.pdf
- *
+ * <p>
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list.
- *
+ * <p>
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained in {@link ConceptVuforiaNavigation}.
  */
 
-@Autonomous(name="Faltech b1 Vumark", group ="7079")
+@Autonomous(name = "Faltech b1 Vumark", group = "7079")
 public class VumarkFaltech extends LinearOpMode {
     FaltechRobot robot = new FaltechRobot();
     ElapsedTime runtime = new ElapsedTime();
@@ -80,15 +81,15 @@ public class VumarkFaltech extends LinearOpMode {
      * localization engine.
      */
 //    VuforiaLocalizer vuforia;
-
-    @Override public void runOpMode() {
+    @Override
+    public void runOpMode() {
 
         /*
          * To start up Vuforia, tell it the view that we wish to use for camera monitor (on the RC phone);
          * If no camera monitor is desired, use the parameterless constructor instead (commented out below).
          */
-    //    int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-  //      VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        //    int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        //      VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
         // OR...  Do Not Activate the Camera Monitor View, to save power
         // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
@@ -105,15 +106,15 @@ public class VumarkFaltech extends LinearOpMode {
          * Once you've obtained a license key, copy the string from the Vuforia web site
          * and paste it in to your code onthe next line, between the double quotes.
          */
-  //      parameters.vuforiaLicenseKey = "AbLmvmr/////AAAAGYJvpAWrd0nzlYNlPZ0i0VMSKm/XCzBgf89e3luaxNl4AJ7PPue20+ySqJ2ehq86y6+ksM1qLu2kIw+zZ7hsYU7M3ockxAGBIyoZQuivV24c2CZKOHYI9wprL3TseGiqbEYS3qUpvhVL1Hu3qObt/5J2mduIg3hqvAGA5sWclJ2967IPiZNNSoGKSVbBAvq/6sS0YEkYhxWXIGlVp+Fp4f0AmtL1bMEYmsyy3af2pupdcyuszAELYywk99AIEbLL12tNulk495py2AMBM+DBJRTQ9yiEf/b37p2n75beVbLp7IC+eScanU9iMpi1gmNmxWqPRYdg8IMBEhk/BMJUmOHW9iPdlwQh8/x7HbnksUoN";
+        //      parameters.vuforiaLicenseKey = "AbLmvmr/////AAAAGYJvpAWrd0nzlYNlPZ0i0VMSKm/XCzBgf89e3luaxNl4AJ7PPue20+ySqJ2ehq86y6+ksM1qLu2kIw+zZ7hsYU7M3ockxAGBIyoZQuivV24c2CZKOHYI9wprL3TseGiqbEYS3qUpvhVL1Hu3qObt/5J2mduIg3hqvAGA5sWclJ2967IPiZNNSoGKSVbBAvq/6sS0YEkYhxWXIGlVp+Fp4f0AmtL1bMEYmsyy3af2pupdcyuszAELYywk99AIEbLL12tNulk495py2AMBM+DBJRTQ9yiEf/b37p2n75beVbLp7IC+eScanU9iMpi1gmNmxWqPRYdg8IMBEhk/BMJUmOHW9iPdlwQh8/x7HbnksUoN";
 
         /*
          * We also indicate which camera on the RC that we wish to use.
          * Here we chose the back (HiRes) camera (for greater range), but
          * for a competition robot, the front camera might be more convenient.
          */
-    //    parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
-      //  this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+        //    parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
+        //  this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
 
         /**
          * Load the data set containing the VuMarks for Relic Recovery. There's only one trackable
@@ -128,8 +129,7 @@ public class VumarkFaltech extends LinearOpMode {
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
         robot.init(hardwareMap, telemetry);
-        while (!isStopRequested() && !robot.driveTrain.imu.isGyroCalibrated())
-        {
+        while (!isStopRequested() && !robot.driveTrain.imu.isGyroCalibrated()) {
             sleep(50);
             idle();
         }
@@ -137,7 +137,6 @@ public class VumarkFaltech extends LinearOpMode {
         telemetry.addData("Mode", "waiting for start");
         telemetry.addData("imu calib status", robot.driveTrain.imu.getCalibrationStatus().toString());
         telemetry.update();
-
 
 
         boolean finished = false;
@@ -201,11 +200,11 @@ public class VumarkFaltech extends LinearOpMode {
 //            }
 //            telemetry.update();
 //        }
-        initialAngle   = robot.driveTrain.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        double startAngle = initialAngle.firstAngle;
+            initialAngle = robot.driveTrain.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            double startAngle = initialAngle.firstAngle;
 
-        telemetry.addData("Finished & Saw", "%s", LCR);
-        telemetry.update();
+            telemetry.addData("Finished & Saw", "%s", LCR);
+            telemetry.update();
 
             robot.jewelArm.moveJewelArmRight(1, 3000);
             robot.jewelArm.stop();
@@ -219,63 +218,50 @@ public class VumarkFaltech extends LinearOpMode {
                 robot.jewelArm.moveJewelArmLeft(1, 2250);
                 robot.driveTrain.swivel(.25, 200);
             }
-        telemetry.addData("Finished Jewel","Going Off");
-        telemetry.update();
-        double currentAngle = initialAngle.firstAngle;
+            telemetry.addData("Finished Jewel", "Going Off");
+            telemetry.update();
+            double currentAngle = initialAngle.firstAngle;
 
-            robot.driveTrain.goInches((robot.glyphDistance[1 + LCR] * -1.3),.25,10);
-//            if (LCR == -1){
-//                robot.driveTrain.goInches(robot.glyphDistance[0],.25,10);
-//            }
-//            else if (LCR == 0){
-//
-//            }
-//            else{
-//                robot.driveTrain.goInches(robot.glyphDistance[2],.25,10);
-//            }
-        telemetry.addData("Finished Driving","Now Turning");
-        telemetry.addData("Start Angle", startAngle);
-        telemetry.addData("Current Angle", currentAngle);
-        telemetry.update();
+            double inchesLCR[] = {10, 17.5, 22};
+            robot.driveTrain.goInches((inchesLCR[1 + LCR] * -1.3), .25, 10);
+            telemetry.addData("Finished Driving", "Now Turning");
+            telemetry.addData("Start Angle", startAngle);
+            telemetry.addData("Current Angle", currentAngle);
+            telemetry.update();
 
-        robot.driveTrain.turnDegreesRight(.5, 90, 5);
-//          robot.glyphCollection.elevatorUp(.8);
-//          sleep(2000);
+            robot.driveTrain.turnDegreesRight(.5, 90, 5);
 
-        robot.driveTrain.goInches(6,.25,10);
+            robot.driveTrain.goInches(6, .25, 10);
 
-        telemetry.addData("Breaking Lock","now");
-        telemetry.update();
-        sleep(1000);
+            telemetry.addData("Breaking Lock", "now");
+            telemetry.update();
+            sleep(1000);
 
-        robot.glyphCollection.mtrHexFR.setPower(.5);
-        sleep(1250);
-        robot.glyphCollection.stop();
+            robot.glyphCollector.mtrHexFR.setPower(.5);
+            sleep(1250);
+            robot.glyphCollector.stop();
 
-        telemetry.addData("Starting Flush","now");
-        sleep(1000);
-        robot.glyphCollection.stop();
+            telemetry.addData("Starting Flush", "now");
+            sleep(1000);
+            robot.glyphCollector.stop();
 
-        robot.glyphCollection.collectionExpel(1);
-        sleep(2500);
+            robot.glyphCollector.collectionExpel(1);
+            sleep(2500);
 
-        telemetry.addData("Moving towards the cryptobox","now");
-        sleep(1000);
+            telemetry.addData("Moving towards the cryptobox", "now");
+            sleep(1000);
 
-        robot.driveTrain.goInches(3, 0.25, 5);
-        robot.driveTrain.stop();
+            robot.driveTrain.goInches(3, 0.25, 5);
+            robot.driveTrain.stop();
 
 
-        telemetry.addData("Moving out","now");
-        telemetry.update();
+            telemetry.addData("Moving out", "now");
+            telemetry.update();
 
-        robot.driveTrain.goInches(-6, 0.25, 5);
-        robot.driveTrain.stop();
-        sleep(500);
-        robot.glyphCollection.stop();
-
-
-
+            robot.driveTrain.goInches(-6, 0.25, 5);
+            robot.driveTrain.stop();
+            sleep(500);
+            robot.glyphCollector.stop();
 
 
 //
@@ -283,16 +269,16 @@ public class VumarkFaltech extends LinearOpMode {
 //        telemetry.update();
 //        sleep(500);
 //
-//        robot.glyphCollection.mtrHexFR.setPower(.5);
+//        robot.glyphCollector.mtrHexFR.setPower(.5);
 //        sleep(1250);
-//        robot.glyphCollection.stop();
+//        robot.glyphCollector.stop();
 //
 //        telemetry.addData("Starting Flush","now");
 //        sleep(500);
 //
-//        robot.glyphCollection.collectionExpel(1);
+//        robot.glyphCollector.collectionExpel(1);
 //        sleep(2500);
-//        robot.glyphCollection.stop();
+//        robot.glyphCollector.stop();
 //
 //        telemetry.addData("Moving towards the cryptobox","now");
 //        sleep(500);
@@ -303,26 +289,27 @@ public class VumarkFaltech extends LinearOpMode {
 //        telemetry.addData("Starting Flush","now");
 //        sleep(500);
 //
-//        robot.glyphCollection.collectionExpel(1);
+//        robot.glyphCollector.collectionExpel(1);
 //
 //        telemetry.addData("Moving out","now");
 //        sleep(1500);
 //
 //        robot.driveTrain.goInches(-6, 0.25, 5);
 //        robot.driveTrain.stop();
-//        robot.glyphCollection.stop();
+//        robot.glyphCollector.stop();
 
 
             robot.robotStop();
-            telemetry.addData("Finished Auto","Switch to Tele-Op");
+            telemetry.addData("Finished Auto", "Switch to Tele-Op");
             telemetry.update();
             sleep(250);
-            telemetry.addData("Testing","Code Building");
+            telemetry.addData("Testing", "Code Building");
             telemetry.update();
-           finished = true;
+            finished = true;
 
         }
     }
+
 //    String format(OpenGLMatrix transformationMatrix) {
 //        return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
 //    }

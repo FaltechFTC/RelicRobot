@@ -23,34 +23,45 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  */
 
 public class FaltechRobot {
+
     DriveTrain driveTrain = new DriveTrain();
     JewelArm jewelArm = new JewelArm();
-    GlyphCollection glyphCollection = new GlyphCollection();
+    GlyphCollector glyphCollector = new GlyphCollector();
     Flipper flipper = new Flipper();
     RelicArm relicArm = new RelicArm();
-    public void init(HardwareMap ahwMap, Telemetry myTelemetry){
-        myTelemetry.addData("Robot","Init");
-        myTelemetry.update();
 
-           
-         
-        driveTrain.init(ahwMap,myTelemetry);
-        
-        jewelArm.init(ahwMap,myTelemetry);
-        glyphCollection.init(ahwMap,myTelemetry);
-        flipper.init(ahwMap,myTelemetry);
-        relicArm.init(ahwMap,myTelemetry);
+    Telemetry telemetry = null;
+    HardwareMap ahwMap = null;
 
-        myTelemetry.addData("Robot","Finished_Init");
-        myTelemetry.update();
+    public void init(HardwareMap ahwMap, Telemetry telemetry) {
+        this.telemetry = telemetry;
+        this.ahwMap = ahwMap;
+
+        telemetry.addData("Robot", "Init");
+        telemetry.update();
+
+        driveTrain.init(ahwMap, telemetry);
+        jewelArm.init(ahwMap, telemetry);
+        glyphCollector.init(ahwMap, telemetry);
+        flipper.init(ahwMap, telemetry);
+        relicArm.init(ahwMap, telemetry);
+
+        telemetry.addData("Robot", "Finished_Init");
+        telemetry.update();
     }
-    public void robotStop(){
+
+    public void robotStop() {
+        telemetry.addData("Robot", "Stopping");
+        telemetry.update();
+
         driveTrain.stop();
         jewelArm.stop();
-        glyphCollection.stop();
+        glyphCollector.stop();
         flipper.stop();
         relicArm.stop();
-    }
 
+        telemetry.addData("Robot", "Stopped");
+        telemetry.update();
+    }
 }
 

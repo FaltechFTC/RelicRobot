@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.GyroSensor;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -21,7 +22,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
  * Created by Faltech Team on 11/24/2017.
  */
 
-public class DriveTrain extends RobotPart{
+public class DriveTrain extends RobotPart {
 
     public DcMotor mtrFR = null;
     public DcMotor mtrFL = null;
@@ -32,16 +33,16 @@ public class DriveTrain extends RobotPart{
 
     public boolean enableIMU = true;
 
-// Sensor
-     BNO055IMU imu;
-     Orientation angles;
-     Acceleration gravity;
-    
+    // Sensor
+    BNO055IMU imu;
+    Orientation angles;
+    Acceleration gravity;
+
     private int offset = 10;
 
-    public void init(HardwareMap ahwMap, Telemetry myTelemetry){
+    public void init(HardwareMap ahwMap, Telemetry myTelemetry) {
 
-        super.init(ahwMap,myTelemetry);
+        super.init(ahwMap, myTelemetry);
 
         mtrFL = ahwMap.dcMotor.get("mtrFL");
         mtrFR = ahwMap.dcMotor.get("mtrFR");
@@ -77,60 +78,58 @@ public class DriveTrain extends RobotPart{
             imu.initialize(parameters);
         }
     }
-	void drive( double straight, double strafe, double turn) {
-		mtrFR.setPower(weightedAverage(straight,strafe,-turn));
-		mtrFL.setPower(weightedAverage(straight,-strafe,turn));
-		mtrBR.setPower(weightedAverage(straight,-strafe,-turn));
-		mtrBL.setPower(weightedAverage(straight,strafe,turn));
-	}
 
-    private void leftSide(double speed){
+    void drive(double straight, double strafe, double turn) {
+        mtrFR.setPower(weightedAverage(straight, strafe, -turn));
+        mtrFL.setPower(weightedAverage(straight, -strafe, turn));
+        mtrBR.setPower(weightedAverage(straight, -strafe, -turn));
+        mtrBL.setPower(weightedAverage(straight, strafe, turn));
+    }
+
+    private void leftSide(double speed) {
         mtrBL.setPower(speed);
         mtrFL.setPower(speed);
     }
 
-    private void rightSide(double speed){
+    private void rightSide(double speed) {
         mtrBR.setPower(speed);
         mtrFR.setPower(speed);
     }
 
-    public void goPulsate(double repetitions, double speed, double direction){
+    public void goPulsate(double repetitions, double speed, double direction) {
         double x = 0;
-        while (x < repetitions){
-            goInches(0.25 * direction,speed,1);
+        while (x < repetitions) {
+            goInches(0.25 * direction, speed, 1);
             mySleep(50);
             x++;
         }
     }
 
-
-    public void stop(){
+    public void stop() {
         mtrBL.setPower(0);
         mtrBR.setPower(0);
         mtrFL.setPower(0);
         mtrFR.setPower(0);
     }
 
-    private void go(double speed){
+    private void go(double speed) {
         leftSide(speed);
         rightSide(speed);
     }
 
-
-    public void pivot(double speed){
+    public void pivot(double speed) {
         leftSide(speed);
         rightSide(-speed);
     }
 
-
-    public void strafe(double speed){
+    public void strafe(double speed) {
         mtrFR.setPower(-speed);
         mtrBR.setPower(speed);
         mtrFL.setPower(speed);
         mtrBL.setPower(-speed);
     }
 
-    public void motor_test(){
+    public void motor_test() {
         privateTelemetry.addData("Testing", "mtrBL");
         privateTelemetry.update();
         mtrBL.setPower(1);
@@ -160,7 +159,7 @@ public class DriveTrain extends RobotPart{
         mySleep(250);
     }
 
-    private void setModeRobot(){
+    private void setModeRobot() {
         mtrBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         mtrBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         mtrFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -179,7 +178,7 @@ public class DriveTrain extends RobotPart{
     double wheel_circumference = 12.56;
     double counts_per_inch = (motor_count * gear_reduction / wheel_circumference);
 
-    private void targetPositions(double inches){
+    private void targetPositions(double inches) {
         double BLtarget;
         double BRtarget;
         double FLtarget;
@@ -197,20 +196,22 @@ public class DriveTrain extends RobotPart{
 
         runtime.reset();
     }
-    private void resetMode(){
+
+    private void resetMode() {
         mtrBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mtrFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public void goTeleOp(double power_D){
+    public void goTeleOp(double power_D) {
         mtrFR.setPower(power_D);
         mtrFL.setPower(power_D);
-         mtrBR.setPower(power_D);
+        mtrBR.setPower(power_D);
         mtrBL.setPower(power_D);
     }
-    public void strafeTeleOp(double power_D){
+
+    public void strafeTeleOp(double power_D) {
         mtrFR.setPower(power_D);
         mtrFL.setPower(-power_D);
         mtrBR.setPower(-power_D);
@@ -218,23 +219,23 @@ public class DriveTrain extends RobotPart{
 
     }
 
-    public void turnTeleOp(double power_D){
+    public void turnTeleOp(double power_D) {
         mtrFR.setPower(-power_D);
         mtrFL.setPower(power_D);
         mtrBR.setPower(-power_D);
         mtrBL.setPower(power_D);
 
     }
-    
-    private void timeOutExit(double timeout){
+
+    private void timeOutExit(double timeout) {
 
         while ((runtime.seconds() < (timeout))
-                && (mtrBL.isBusy() &&mtrBR.isBusy()
+                && (mtrBL.isBusy() && mtrBR.isBusy()
                 && mtrFL.isBusy() && mtrFR.isBusy())) {
 
             // Display it for the driver.
-            privateTelemetry.addData("Path1",  "Running to target position");
-            privateTelemetry.addData("Path2",  "Running at:",
+            privateTelemetry.addData("Path1", "Running to target position");
+            privateTelemetry.addData("Path2", "Running at:",
                     mtrBL.getCurrentPosition(),
                     mtrBR.getCurrentPosition(),
                     mtrFL.getCurrentPosition(),
@@ -244,7 +245,7 @@ public class DriveTrain extends RobotPart{
 
     }
 
-    public void goInches(double inches, double speed, double timeout){
+    public void goInches(double inches, double speed, double timeout) {
         runtime.reset();
         setModeRobot();
         targetPositions(inches);
@@ -254,20 +255,20 @@ public class DriveTrain extends RobotPart{
         stop();
     }
 
-    public void goStrafeInches(double inches, double speed, double timeout ){
+    public void goStrafeInches(double inches, double speed, double timeout) {
         runtime.reset();
         setModeRobot();
-        mtrBL.setTargetPosition((int) -(inches * (1250/29)));
-        mtrBR.setTargetPosition((int) (inches * (1250/29)));
-        mtrFL.setTargetPosition((int) (inches * (1250/29)));
-        mtrFR.setTargetPosition((int) -(inches * (1250/29)));
+        mtrBL.setTargetPosition((int) -(inches * (1250 / 29)));
+        mtrBR.setTargetPosition((int) (inches * (1250 / 29)));
+        mtrFL.setTargetPosition((int) (inches * (1250 / 29)));
+        mtrFR.setTargetPosition((int) -(inches * (1250 / 29)));
         strafe(speed);
         timeOutExit(timeout);
         resetMode();
         stop();
     }
-    
-    public void goStrafe(double speed, double timeout){
+
+    public void goStrafe(double speed, double timeout) {
         runtime.reset();
         strafe(speed);
         mySleep(timeout);
@@ -275,82 +276,79 @@ public class DriveTrain extends RobotPart{
     }
 
 
-    public double offSetAngle(double angle){
+    public double offSetAngle(double angle) {
         double offSet = 0.12 * angle;
         return offSet;
     }
+
     public double targetAngle = 0;
 
-     public void turnDegreesRight(double speed, double degrees, double timeout ){
-         if (!enableIMU) return ;
+    public void turnDegreesRight(double speed, double degrees, double timeout) {
+        if (!enableIMU) return;
 
-         angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-         double heading = angles.firstAngle;
-         double tempHeading = angles.firstAngle;
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double heading = angles.firstAngle;
+        double tempHeading = angles.firstAngle;
 
 
+        runtime.reset();
+        pivot(speed);
+        while (Math.abs(tempHeading - heading) <= (degrees - offSetAngle(degrees)) && runtime.seconds() < timeout) {
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            heading = angles.firstAngle;
+            double roll = angles.thirdAngle;
+            double pitch = angles.secondAngle;
+            privateTelemetry.addData("heading", heading);
+            privateTelemetry.addData("roll", roll);
+            privateTelemetry.addData("pitch", pitch);
+            privateTelemetry.update();
+        }
 
-         runtime.reset();
-         pivot(speed);
-         while (Math.abs(tempHeading - heading) <= (degrees - offSetAngle(degrees)) && runtime.seconds() < timeout) {
-             angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-             heading = angles.firstAngle;
-             double roll = angles.thirdAngle;
-             double pitch = angles.secondAngle;
-             privateTelemetry.addData("heading", heading);
-             privateTelemetry.addData("roll", roll);
-             privateTelemetry.addData("pitch", pitch);
-             privateTelemetry.update();
-         }
-        
-         if (runtime.seconds() >= timeout)
-         {
-             privateTelemetry.addData("timeOut elaspsed", runtime.seconds());
-             privateTelemetry.update();
-         }
-        
-         privateTelemetry.addData("heading", tempHeading);
-         privateTelemetry.update();
-        
-         stop();
-     }
-    
-    
+        if (runtime.seconds() >= timeout) {
+            privateTelemetry.addData("timeOut elaspsed", runtime.seconds());
+            privateTelemetry.update();
+        }
 
-     public void turnDegreesLeft(double speed, double degrees, double timeout ){
+        privateTelemetry.addData("heading", tempHeading);
+        privateTelemetry.update();
 
-         if (!enableIMU) return;
+        stop();
+    }
 
-         angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-         double heading = angles.firstAngle;
-         double tempHeading = angles.firstAngle;
-         runtime.reset();
-         pivot(-speed);
 
-         while (Math.abs(tempHeading - heading) <= -(degrees - offSetAngle(degrees)) && runtime.seconds() < timeout) {
-             angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-             heading = angles.firstAngle;
-             double roll = angles.thirdAngle;
-             double pitch = angles.secondAngle;
-             privateTelemetry.addData("heading", heading);
-             privateTelemetry.addData("roll", roll);
-             privateTelemetry.addData("pitch", pitch);
-             privateTelemetry.update();
-         }
+    public void turnDegreesLeft(double speed, double degrees, double timeout) {
 
-         if (runtime.seconds() >= timeout)
-         {
-             privateTelemetry.addData("timeOut","Completed!") ;
-             privateTelemetry.update();
-         }
+        if (!enableIMU) return;
 
-         privateTelemetry.addData("heading", tempHeading);
-         privateTelemetry.update();
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double heading = angles.firstAngle;
+        double tempHeading = angles.firstAngle;
+        runtime.reset();
+        pivot(-speed);
 
-         stop();
-     }
+        while (Math.abs(tempHeading - heading) <= -(degrees - offSetAngle(degrees)) && runtime.seconds() < timeout) {
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            heading = angles.firstAngle;
+            double roll = angles.thirdAngle;
+            double pitch = angles.secondAngle;
+            privateTelemetry.addData("heading", heading);
+            privateTelemetry.addData("roll", roll);
+            privateTelemetry.addData("pitch", pitch);
+            privateTelemetry.update();
+        }
 
-    public void swivel(double speed, int gap){
+        if (runtime.seconds() >= timeout) {
+            privateTelemetry.addData("timeOut", "Completed!");
+            privateTelemetry.update();
+        }
+
+        privateTelemetry.addData("heading", tempHeading);
+        privateTelemetry.update();
+
+        stop();
+    }
+
+    public void swivel(double speed, int gap) {
         runtime.reset();
         pivot(speed);
         mySleep(gap);
@@ -362,7 +360,8 @@ public class DriveTrain extends RobotPart{
         // mySleep(250);
         stop();
     }
-        public void TurnTime(int time, int direction){
+
+    public void TurnTime(int time, int direction) {
         runtime.reset();
         pivot(.3 * direction);
         mySleep(time);
@@ -377,11 +376,11 @@ public class DriveTrain extends RobotPart{
 
     public double weightedAverage(double x, double y, double z) {
         double speed_D = 0;
-        if ((Math.abs(x) + Math.abs(y) + Math.abs(z))  != 0.0) {
+        if ((Math.abs(x) + Math.abs(y) + Math.abs(z)) != 0.0) {
             speed_D = ((x * Math.abs(x)) + (y * Math.abs(y)) + (z * Math.abs(z)))
                     / (Math.abs(x) + Math.abs(y) + Math.abs(z));
         }
         return (speed_D);
     }
-	
+
 }
