@@ -64,13 +64,13 @@ public class FaltechTeleOp3 extends OpMode{
         telemetry.addData("Loop couunt ", loop_count++);
         telemetry.update();
         boolean Reverse = false;
-        double FwdBack_D = -gamepad1.right_stick_y;
-        double Turn_D = gamepad1.left_stick_x;
-        double Strafe_D = -gamepad1.right_stick_x;
+        double FwdBack_D = gamepad1.right_stick_y;
+        double Turn_D = -gamepad1.left_stick_x;
+        double Strafe_D = gamepad1.right_stick_x;
         // double StrafeR_D = gamepad1.right_trigger;
         // double StrafeL_D = gamepad1.left_trigger;
         double FlipUp_D = gamepad2.right_trigger;
-        double FlipDown_D = gamepad2.left_trigger;
+        //double FlipDown_D = gamepad2.left_trigger;
         double Elevator_D = -gamepad2.left_stick_y;
         
         double flipCurrentPosition = robot.flipper.mtrFlipper.getCurrentPosition();
@@ -119,6 +119,11 @@ public class FaltechTeleOp3 extends OpMode{
             robot.flipper.stop();
 
         }
+        else if (gamepad2.right_trigger > 0.3 && gamepad2.right_bumper){
+            double newPos = flipStartPosition + 175 * flipPos_D;
+            robot.flipper.flipperUp(-newPos);
+            robot.flipper.mtrFlipper.setPower(-.7);
+        }
         else{
             double newPos = flipStartPosition + 175 * flipPos_D;
             double powerVar = (Math.abs(newPos - flipCurrentPosition)/100);
@@ -126,6 +131,7 @@ public class FaltechTeleOp3 extends OpMode{
             
             robot.flipper.mtrFlipper.setPower(-(0.5 * powerVar) - 0.2);
         }
+
         //Jewel Arm
         if (gamepad1.dpad_left){
             robot.jewelArm.csrvJewel.setPower(-1);
@@ -154,24 +160,24 @@ public class FaltechTeleOp3 extends OpMode{
         }
         
         
-        if (gamepad2.right_bumper){
-            telemetry.addData("Elevator status","Going Up");
-            telemetry.update();
-            robot.glyphColllection.csrvElevator.setPower(-0.8);
-            robot.glyphColllection.csrvElevator2.setPower(0.8);
-        } 
-        else if (gamepad2.left_bumper){
-            robot.glyphColllection.csrvElevator.setPower(0.8);
-            robot.glyphColllection.csrvElevator2.setPower(-0.8);
-        }
-        else if (gamepad2.y){
-            robot.glyphColllection.csrvElevator.setPower(-0.16);
-            robot.glyphColllection.csrvElevator2.setPower(0.16);
-        }
-        else {
-            robot.glyphColllection.csrvElevator.setPower(0);
-            robot.glyphColllection.csrvElevator2.setPower(0);
-        }
+//        if (gamepad2.right_bumper){
+//            telemetry.addData("Elevator status","Going Up");
+//            telemetry.update();
+//            robot.glyphColllection.csrvElevator.setPower(-0.8);
+//            robot.glyphColllection.csrvElevator2.setPower(0.8);
+//        }
+//        else if (gamepad2.left_bumper){
+//            robot.glyphColllection.csrvElevator.setPower(0.8);
+//            robot.glyphColllection.csrvElevator2.setPower(-0.8);
+//        }
+//        else if (gamepad2.y){
+//            robot.glyphColllection.csrvElevator.setPower(-0.16);
+//            robot.glyphColllection.csrvElevator2.setPower(0.16);
+//        }
+//        else {
+//            robot.glyphColllection.csrvElevator.setPower(0);
+//            robot.glyphColllection.csrvElevator2.setPower(0);
+//        }
 //Relic Arm
          if (gamepad2.x){
              robot.relicArm.srvClench();
